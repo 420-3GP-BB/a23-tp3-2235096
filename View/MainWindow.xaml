@@ -9,8 +9,124 @@
         Height="720" 
         Width="1280"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
+        WindowStartupLocation="CenterScreen"
+        Background="LightBlue">
+    <DockPanel>
+        <Grid>
+            <TextBlock Text="Nom de l'utilisateur:"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="10,44,0,0"
+                   Height="87">
 
-    </Grid>
+            </TextBlock>
+
+            <Button Content="Changer d'utilisateur"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,60,395,0" Height="23" Width="139">
+            </Button>
+
+            <Button Content="Mode administrateur"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,60,217,0" Height="23" Width="139">
+            </Button>
+
+            <Button Content="Quitter"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,60,39,0" Height="23" Width="139">
+            </Button>
+
+            <TextBlock Text="Livres de l'utilisateur"
+                       Width="238"
+                       Height="49" 
+                       Margin="206,136,0,0"
+                       FontSize="25"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontWeight="Medium"/>
+
+            <Border HorizontalAlignment="Left"
+                BorderBrush="Black"
+                BorderThickness="5" 
+                Width="630" 
+                Margin="10,131,0,0" 
+                Height="536" 
+                VerticalAlignment="Top">
+
+                <ListBox Width="610" 
+                         Margin="5,36,5,47"/>
+
+            </Border>
+
+            <Button Content="Commander livre"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="112,0,0,42" 
+                    Height="23" 
+                    Width="139">
+            </Button>
+
+            <Button Content="Transférer livre"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="386,0,0,42" 
+                    Height="23" 
+                    Width="139">
+            </Button>
+
+            <TextBlock Text="Commandes en attentes"
+                       Width="296"
+                       Height="49" 
+                       Margin="816,136,0,0"
+                       FontSize="25"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontWeight="Medium"/>
+
+            <Border HorizontalAlignment="Left"
+                    BorderBrush="Black"
+                    BorderThickness="5" 
+                    Width="600" 
+                    Margin="650,131,0,0"
+                    VerticalAlignment="Top" 
+                    Height="257" >
+
+                <ListBox Margin="5,38,5,43"/>
+
+            </Border>
+
+            <Button Content="Annuler commande"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="884,350,0,0" 
+                    Height="23" 
+                    Width="139">
+            </Button>
+
+            <TextBlock Text="Commandes traitées"
+                       Width="296"
+                       Height="49" 
+                       Margin="826,410,0,0"
+                       FontSize="25"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontWeight="Medium"/>
+
+            <Border HorizontalAlignment="Left"
+                    BorderBrush="Black"
+                    BorderThickness="5" 
+                    Width="600" 
+                    Margin="650,410,0,0"
+                    VerticalAlignment="Top"
+                    Height="257" >
+
+                <ListBox Margin="5,38,5,46"/>
+            </Border>
+        </Grid>
+    </DockPanel>
 </Window>

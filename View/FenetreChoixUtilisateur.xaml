@@ -1,0 +1,22 @@
+﻿<Window x:Class="View.FenetreChoixUtilisateur"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="FenetreChoixUtilisateur" Height="200" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="LightBlue">
+    <Grid>
+        <TextBlock Text="Choisissez un utilisateur"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top" 
+                   Margin="0,32,0,0"
+                   FontWeight="SemiBold">
+        </TextBlock>
+
+        <TextBlock></TextBlock>
+    </Grid>
+</Window>
