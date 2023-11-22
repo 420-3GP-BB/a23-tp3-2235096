@@ -17,6 +17,23 @@
                    FontWeight="SemiBold">
         </TextBlock>
 
-        <TextBlock></TextBlock>
+        <TextBlock Text="Utilisateur: "
+                   Margin="72,72,248,-72">
+        </TextBlock>
+
+        <ComboBox x:Name="ComboBoxUtilisateur"
+                  Width="200" 
+                  Height="15"
+                  Margin="135,76,65,95">
+        </ComboBox>
+
+        <Button Content="Confirmer"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="166,102,0,0" 
+                Height="20" 
+                Width="100">
+        </Button>
+
     </Grid>
 </Window>
