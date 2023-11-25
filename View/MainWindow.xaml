@@ -11,6 +11,19 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="LightBlue">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.ChangerMembre}"
+                        Executed="ChangerMembre_Executed"/>
+
+        <CommandBinding Command="{x:Static local:MainWindow.ModeAdmin}"
+                        Executed="ChangerMode_Executed"
+                        CanExecute="ChangerMode_CanExecute"/>
+
+        <CommandBinding Command="{x:Static local:MainWindow.Quitter}"
+                        Executed="Quitter_Executed"/>
+    </Window.CommandBindings>
+    
     <DockPanel>
         <Grid>
             <TextBlock Text="Nom de l'utilisateur:"
@@ -26,19 +39,28 @@
             <Button Content="Changer d'utilisateur"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="0,60,395,0" Height="23" Width="139">
+                Margin="0,60,395,0" 
+                Height="23"
+                Width="139"
+                Command="{x:Static local:MainWindow.ChangerMembre}">
             </Button>
 
             <Button Content="Mode administrateur"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="0,60,217,0" Height="23" Width="139">
+                Margin="0,60,217,0" 
+                Height="23" 
+                Width="139"
+                Command="{x:Static local:MainWindow.ModeAdmin}">
             </Button>
 
             <Button Content="Quitter"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Margin="0,60,39,0" Height="23" Width="139">
+                Margin="0,60,39,0" 
+                Height="23" 
+                Width="139"
+                Command="{x:Static local:MainWindow.Quitter}">
             </Button>
 
             <TextBlock Text="Livres de l'utilisateur"

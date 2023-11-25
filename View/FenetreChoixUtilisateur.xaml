@@ -18,19 +18,26 @@
         </TextBlock>
 
         <TextBlock Text="Utilisateur: "
-                   Margin="72,72,248,-72">
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="32,0,0,0">
         </TextBlock>
 
-        <ComboBox x:Name="ComboBoxUtilisateur"
-                  Width="200" 
-                  Height="15"
-                  Margin="135,76,65,95">
+        <ComboBox x:Name="ComboBox"
+                  SelectionChanged="ComboBoxUtilisateur_SelectionChanged"
+                  SelectedItem="{Binding MembresActive, Mode=TwoWay}"
+                  ItemsSource="{Binding LesMembres, Mode=OneWay}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Width="206" 
+                  Height="24"
+                  >
         </ComboBox>
 
         <Button Content="Confirmer"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="166,102,0,0" 
+                Margin="0,114,0,0" 
                 Height="20" 
                 Width="100">
         </Button>
