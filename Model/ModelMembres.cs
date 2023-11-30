@@ -6,6 +6,7 @@ namespace Model
 {
     public class ModelMembres
     {
+        
         public ObservableCollection<Membres> LesMembres
         {
             private set;
@@ -15,12 +16,17 @@ namespace Model
         public ModelMembres()
         {
             LesMembres = new ObservableCollection<Membres>();
+            LesLivres = new ObservableCollection<Livres>();
+        }
+
+        public ObservableCollection<Livres>? LesLivres
+        {
+            private set;
+            get;
         }
 
         public void ChargerFichierXml(string nomFichier)
         {
-            LesMembres = new ObservableCollection<Membres>();
-
             XmlDocument document = new XmlDocument();
             document.Load(nomFichier);
             XmlElement racine = document.DocumentElement;

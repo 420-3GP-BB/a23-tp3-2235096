@@ -20,23 +20,27 @@ namespace View
         public static RoutedCommand ChangerMembre = new RoutedCommand();
         public static RoutedCommand ModeAdmin = new RoutedCommand();
         public static RoutedCommand Quitter = new RoutedCommand();
-        //private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
-        //private string pathFichier;
+        public static RoutedCommand AfficherLivres = new RoutedCommand();
 
-        //private ViewModelMembres _viewModel;
+        private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
+        private string pathFichier;
+
+        private ViewModelMembres _viewModel;
         public MainWindow()
         {
-            //pathFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-            //DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
-            //_viewModel = new ViewModelMembres();
+            pathFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+            DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
+            
+            _viewModel = new ViewModelMembres();
             InitializeComponent();
-            //DataContext = _viewModel;
-
+            
+            _viewModel.ChargerMembres(pathFichier);
+            DataContext = _viewModel;
         }
 
         private void ChangerMembre_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FenetreChoixUtilisateur fenetreChoixUtilisateur = new FenetreChoixUtilisateur();
+            FenetreChoixUtilisateur fenetreChoixUtilisateur = new FenetreChoixUtilisateur(_viewModel);
             fenetreChoixUtilisateur.Show();
         }
 

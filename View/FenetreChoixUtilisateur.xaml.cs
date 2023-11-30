@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,9 @@ namespace View
     public partial class FenetreChoixUtilisateur : Window
     {
         private ViewModelMembres _viewModel;
-        public FenetreChoixUtilisateur()
+        public FenetreChoixUtilisateur(ViewModelMembres viewModel)
         {
-            _viewModel = new ViewModelMembres();
+            _viewModel = viewModel;
             InitializeComponent();
             DataContext = _viewModel;
         }
@@ -31,6 +32,16 @@ namespace View
         private void ComboBoxUtilisateur_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //_viewModel.ChangerMembres(ComboBoxMembres.SelectedItem);
+        }
+
+        private void BoutonConfirmer_Click(object sender, RoutedEventArgs e)
+        {
+            //Source: Chatgpt
+            if(_viewModel.MembresActive != null && ComboBox.SelectedItem != null)
+            {
+                _viewModel.MembresActive = ComboBox.SelectedItem as Membres;
+            }
+            Close();
         }
     }
 }

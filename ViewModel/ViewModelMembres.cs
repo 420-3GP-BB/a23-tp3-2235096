@@ -6,33 +6,47 @@ namespace ViewModel
 {
     public class ViewModelMembres : INotifyPropertyChanged
     {
-        private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
-        private string _nomFichier;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        //private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
         private ModelMembres _model;
+        private string? _nomFichier;
 
-        public ViewModelMembres()
+        public Membres? MembresActive
         {
-            _nomFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-            DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
-            _model = new ModelMembres();
-            _model.ChargerFichierXml(_nomFichier);
+            get => _membresActive;
+            set
+            {
+                if (_membresActive != value)
+                {
+                    _membresActive = value;
+                    OnPropertyChange(nameof(MembresActive));
+                }
+            }
+            
         }
+        private Membres? _membresActive; //Source: chatgpt
+
+
+
+        // Maybe will need this
+
+        //public string DernierUser
+        //{
+        //    get;
+        //    set;
+        //}
+
+
 
         public ObservableCollection<Membres> LesMembres
         {
             get
             {
-                return _model.LesMembres;  
+                return _model.LesMembres;
             }
         }
 
-        public Membres? MembresActive
-        {
-            set;
-            get;
-        }
-
-        public ObservableCollection<Livres>? LesLivres
+        public ObservableCollection<string>? LesLivres
         {
             get
             {
@@ -47,7 +61,18 @@ namespace ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public ViewModelMembres()
+        {
+            _model = new ModelMembres();
+            MembresActive = null;
+            _nomFichier = null;
+            
+            //_nomFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+            //DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
+
+            //_model.ChargerFichierXml(_nomFichier);
+        }
+
 
         public void ChargerMembres(string nomFichier)
         {
@@ -60,11 +85,17 @@ namespace ViewModel
             OnPropertyChange("");
         }
 
-        public void ChangerMembres(Object obj)
-        {
-            MembresActive = obj as Membres;
-            OnPropertyChange("");
-        }
+        //public void ChangerMembres(Object obj)
+        //{
+        //    MembresActive = obj as Membres;
+        //    OnPropertyChange("");
+        //}
+
+        //public void ChangerMembres(Object obj)
+        //{
+        //    MembresActive = obj as Membres;
+        //    OnPropertyChange("");
+        //}
 
         private void OnPropertyChange(string? property = null)
         {

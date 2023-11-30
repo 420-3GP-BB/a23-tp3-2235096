@@ -8,6 +8,16 @@ namespace Model
 {
     public class Commandes
     {
-
+        public string Statut 
+        { 
+            get;
+            set;
+        }
+        public string ISBN_Livre 
+        { 
+            get;
+            set;
+        }
+        public Commandes() { }
     }
 }

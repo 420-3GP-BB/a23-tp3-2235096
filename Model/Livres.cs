@@ -8,6 +8,11 @@ namespace Model
 {
     public class Livres
     {
+        public string ISBN
+        {
+            private set; 
+            get;
+        }
         public string Titre
         {
             private set;
@@ -32,13 +37,16 @@ namespace Model
             get;
         }
 
-        public Livres( string titre, string auteur, string editeur, int annee)
+        public Livres(string isbn , string titre, string auteur, string editeur, int annee)
         {
+            ISBN = isbn;
             Titre = titre;
             Auteur = auteur;
             Editeur = editeur;
             Annee = annee;
         }
+
+
 
         public override string ToString()
         {

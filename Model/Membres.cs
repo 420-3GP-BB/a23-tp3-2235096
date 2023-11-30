@@ -12,7 +12,13 @@ namespace Model
 {
     public class Membres : IConversionXML
     {
-        public ObservableCollection<Livres> LesLivres 
+        public ObservableCollection<string> LesLivres 
+        {
+            private set;
+            get;
+        }
+
+        public ObservableCollection<Commandes> LesCommandes
         {
             private set;
             get;
@@ -34,13 +40,13 @@ namespace Model
         {
             Nom = nom;
             Administrateur = administrateur;
-            LesLivres = new ObservableCollection<Livres>();
+            LesLivres = new ObservableCollection<string>();
         }
 
         public Membres(XmlElement element)
         {
             Nom = element.GetAttribute("nom");
-            LesLivres = new ObservableCollection<Livres>();
+            LesLivres = new ObservableCollection<string>();
             DeXML(element); 
         }
 
@@ -53,11 +59,12 @@ namespace Model
         {
             XmlElement elementMembre = doc.CreateElement("membre");
             elementMembre.SetAttribute("nom", Nom);
-            foreach(Livres livre in LesLivres) 
+            elementMembre.SetAttribute("administrateur", Administrateur.ToString());
+            foreach(string livre in LesLivres) 
             {
-                string nomLivre = livre.Titre;
-                XmlElement nouveauLivre = doc.CreateElement("mivre");
-                nouveauLivre.InnerText = nomLivre;
+                string isbnLivre = livre;
+                XmlElement nouveauLivre = doc.CreateElement("livre");
+                nouveauLivre.InnerText = isbnLivre;
                 elementMembre.AppendChild(nouveauLivre);
             }
             return elementMembre;
@@ -68,7 +75,7 @@ namespace Model
             XmlNodeList lesLivres = elem.GetElementsByTagName("livre");
             foreach (XmlElement elementLivre in lesLivres)
             {
-                //LesLivres.Add(new Livres(elementLivre.InnerText));
+                LesLivres.Add(elementLivre.GetAttribute("ISBN-13"));
             }
         }
     }

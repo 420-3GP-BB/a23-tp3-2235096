@@ -25,7 +25,6 @@
 
         <ComboBox x:Name="ComboBox"
                   SelectionChanged="ComboBoxUtilisateur_SelectionChanged"
-                  SelectedItem="{Binding MembresActive, Mode=TwoWay}"
                   ItemsSource="{Binding LesMembres, Mode=OneWay}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
@@ -39,7 +38,8 @@
                 VerticalAlignment="Top"
                 Margin="0,114,0,0" 
                 Height="20" 
-                Width="100">
+                Width="100"
+                Click="BoutonConfirmer_Click">
         </Button>
 
     </Grid>
