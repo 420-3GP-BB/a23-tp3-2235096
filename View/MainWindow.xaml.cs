@@ -26,17 +26,23 @@ namespace View
         private string pathFichier;
 
         private ViewModelMembres _viewModel;
+
         public MainWindow()
-        {
+        { 
+            InitializeComponent();
             pathFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
             DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
-            
+
             _viewModel = new ViewModelMembres();
-            InitializeComponent();
-            
-            _viewModel.ChargerMembres(pathFichier);
-            DataContext = _viewModel;
+
+            // Pour afficher les livres du utilisateur active dans listBox 
+            ListBoxLivres.DataContext = _viewModel;
+            _viewModel.ChargerMembresEtLivres(pathFichier);
+            //Pour afficher le nom du utilisateur active
+            dernierUtilisateur.DataContext = _viewModel;
+
         }
+
 
         private void ChangerMembre_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -52,7 +58,7 @@ namespace View
 
         private void ChangerMode_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = _viewModel?.MembresActive?.Administrateur ?? false;
         }
                 
         private void Quitter_Executed(object sender, ExecutedRoutedEventArgs e)

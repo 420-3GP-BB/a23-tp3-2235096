@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="FenetreCommandeLivre" 
+        Title="Commande de livre" 
         Height="340" 
         Width="700"
         ResizeMode="NoResize"

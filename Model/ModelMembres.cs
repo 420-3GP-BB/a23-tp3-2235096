@@ -6,24 +6,20 @@ namespace Model
 {
     public class ModelMembres
     {
-        
-        public ObservableCollection<Membres> LesMembres
+        private Dictionary<string, Livres> _dictionnaire;
+        public ObservableCollection<Membres> ListeMembres
         {
             private set;
             get;
         }
 
-        public ModelMembres()
+        public ModelMembres(Dictionary<string, Livres> dictionnaire)
         {
-            LesMembres = new ObservableCollection<Membres>();
-            LesLivres = new ObservableCollection<Livres>();
+            ListeMembres = new ObservableCollection<Membres>();
+            _dictionnaire = dictionnaire;
+
         }
 
-        public ObservableCollection<Livres>? LesLivres
-        {
-            private set;
-            get;
-        }
 
         public void ChargerFichierXml(string nomFichier)
         {
@@ -36,7 +32,7 @@ namespace Model
 
             foreach (XmlElement unElement in lesMembresXML)
             {
-                LesMembres.Add(new Membres(unElement));
+                ListeMembres.Add(new Membres(unElement, _dictionnaire));
             }
         }
 
@@ -49,7 +45,7 @@ namespace Model
             XmlElement elementMembre = document.CreateElement("membres");
             racine.AppendChild(elementMembre);
 
-            foreach (Membres unMembre in LesMembres)
+            foreach (Membres unMembre in ListeMembres)
             {
                 XmlElement element = unMembre.VersXML(document);
                 elementMembre.AppendChild(element);

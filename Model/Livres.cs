@@ -50,7 +50,8 @@ namespace Model
 
         public override string ToString()
         {
-            return Titre;
+            return Titre + ", " + Auteur + " (" + Annee + ")";
+            
         }
     }
 }

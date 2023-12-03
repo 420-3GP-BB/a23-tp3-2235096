@@ -34,9 +34,10 @@
                    Margin="10,44,0,0"
                    Height="87">
             </TextBlock>
-            <TextBlock Text="{Binding MembresActive, Mode=OneWay}"
-                     FontSize="35"
-                     Margin="325,44,640,596"
+            <TextBlock x:Name="dernierUtilisateur"
+                Text="{Binding MembresActive, Mode=OneWay}"
+                     FontSize="25"
+                     Margin="325,50,640,598"
                      FontWeight="DemiBold"/>
 
 
@@ -85,6 +86,7 @@
                 VerticalAlignment="Top">
 
                 <ListBox x:Name="ListBoxLivres"
+                         ItemsSource="{Binding ListeLivres}"
                          Width="610" 
                          Margin="5,36,5,47"
                          />

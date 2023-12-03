@@ -31,17 +31,27 @@ namespace View
 
         private void ComboBoxUtilisateur_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //_viewModel.ChangerMembres(ComboBoxMembres.SelectedItem);
+            //if (_viewModel.MembresActive != null && ComboBox.SelectedItem != null)
+            //{
+            //    _viewModel.ChangerMembres(ComboBox.SelectedItem);
+            //}
+            
         }
 
         private void BoutonConfirmer_Click(object sender, RoutedEventArgs e)
         {
             //Source: Chatgpt
-            if(_viewModel.MembresActive != null && ComboBox.SelectedItem != null)
+            //if(_viewModel.MembresActive != null && ComboBox.SelectedItem != null)
+            //{
+            //    _viewModel.MembresActive = ComboBox.SelectedItem as Membres;
+            //}
+            //Close();
+
+            if (ComboBoxMembres.SelectedItem != null)
             {
-                _viewModel.MembresActive = ComboBox.SelectedItem as Membres;
+                _viewModel.ChangerMembres(ComboBoxMembres.SelectedItem);
+                Close();
             }
-            Close();
         }
     }
 }

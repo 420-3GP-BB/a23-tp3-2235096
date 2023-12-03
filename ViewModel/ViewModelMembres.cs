@@ -7,23 +7,30 @@ namespace ViewModel
     public class ViewModelMembres : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        //private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
+
+        private ModelLivres _modelLivres;
+        // Variable privé de type ModelMembres
         private ModelMembres _model;
+        // Variable de type string pour chemin du fichier xml
         private string? _nomFichier;
 
         public Membres? MembresActive
         {
+            //Envoi la valeur actuelle de _membreActive
             get => _membresActive;
             set
             {
+                //Condition pour voir si la la propriété a changé
                 if (_membresActive != value)
                 {
-                    _membresActive = value;
+                    //Si vrai, attribut la nouvelle valeur
+                    _membresActive = value; 
                     OnPropertyChange(nameof(MembresActive));
                 }
             }
             
         }
+        // variable privé pour stocké valeur de MembresActive
         private Membres? _membresActive; //Source: chatgpt
 
 
@@ -38,15 +45,15 @@ namespace ViewModel
 
 
 
-        public ObservableCollection<Membres> LesMembres
+        public ObservableCollection<Membres> ListeMembres
         {
             get
             {
-                return _model.LesMembres;
+                return _model.ListeMembres;
             }
         }
 
-        public ObservableCollection<string>? LesLivres
+        public ObservableCollection<Livres>? ListeLivres
         {
             get
             {
@@ -56,40 +63,41 @@ namespace ViewModel
                 }
                 else
                 {
-                    return MembresActive.LesLivres;
+                    return MembresActive.ListeLivres;
+                    //return _modelLivres.ListeLivres;
                 }
             }
         }
 
         public ViewModelMembres()
         {
-            _model = new ModelMembres();
+            _modelLivres = new ModelLivres();
+            _model = new ModelMembres(_modelLivres.DicoLivres);
             MembresActive = null;
             _nomFichier = null;
-            
-            //_nomFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-            //DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
-
-            //_model.ChargerFichierXml(_nomFichier);
         }
 
 
-        public void ChargerMembres(string nomFichier)
+        public void ChargerMembresEtLivres(string nomFichier)
         {
             _nomFichier = nomFichier;
+            _modelLivres.ChargerLivres(_nomFichier);
             _model.ChargerFichierXml(_nomFichier);
-            if (LesMembres != null && LesMembres.Count > 0)
+            
+
+            if (ListeMembres != null && ListeMembres.Count > 0)
             {
-                MembresActive = LesMembres[0];
+                MembresActive = ListeMembres[0];
             }
             OnPropertyChange("");
+
         }
 
-        //public void ChangerMembres(Object obj)
-        //{
-        //    MembresActive = obj as Membres;
-        //    OnPropertyChange("");
-        //}
+        public void ChangerMembres(Object obj)
+        {
+            MembresActive = obj as Membres;
+            OnPropertyChange("");
+        }
 
         //public void ChangerMembres(Object obj)
         //{
@@ -100,6 +108,14 @@ namespace ViewModel
         private void OnPropertyChange(string? property = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        public void SauvegarderModification()
+        {
+            if (_nomFichier != null)
+            {
+                _model.SauvegarderFichierXml( _nomFichier );
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="FenetreChoixUtilisateur" Height="200" Width="400"
+        Title="Choix utilisateur" Height="200" Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="LightBlue">
@@ -23,9 +23,9 @@
                    Margin="32,0,0,0">
         </TextBlock>
 
-        <ComboBox x:Name="ComboBox"
+        <ComboBox x:Name="ComboBoxMembres"
                   SelectionChanged="ComboBoxUtilisateur_SelectionChanged"
-                  ItemsSource="{Binding LesMembres, Mode=OneWay}"
+                  ItemsSource="{Binding ListeMembres, Mode=OneWay}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Width="206" 

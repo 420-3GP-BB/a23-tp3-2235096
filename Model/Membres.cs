@@ -12,7 +12,9 @@ namespace Model
 {
     public class Membres : IConversionXML
     {
-        public ObservableCollection<string> LesLivres 
+
+        private Dictionary<string, Livres> _dictionnaire;
+        public ObservableCollection<Livres> ListeLivres
         {
             private set;
             get;
@@ -36,33 +38,39 @@ namespace Model
             get;
         }
 
-        public Membres(string nom, bool administrateur)
+        public Membres(string nom, bool administrateur) //Dictionairy, ISBNs dans user dans parathèses
         {
             Nom = nom;
             Administrateur = administrateur;
-            LesLivres = new ObservableCollection<string>();
+            ListeLivres = new ObservableCollection<Livres>();
+
+            //if (dictionnaire.ContainsKey(isbn))
+            //{
+            //    ListeLivres.Add(dictionnaire[isbn]);
+            //}
+
+            //if dictionairy contain key
+            //add ListeLivres
         }
 
-        public Membres(XmlElement element)
+        public Membres(XmlElement element, Dictionary<string, Livres> dictionnaire)
         {
             Nom = element.GetAttribute("nom");
-            LesLivres = new ObservableCollection<string>();
+            ListeLivres = new ObservableCollection<Livres>();
+            _dictionnaire = dictionnaire;
             DeXML(element); 
         }
 
-        public override string ToString()
-        {
-            return Nom;
-        }
+        
 
         public XmlElement VersXML(XmlDocument doc)
         {
             XmlElement elementMembre = doc.CreateElement("membre");
             elementMembre.SetAttribute("nom", Nom);
             elementMembre.SetAttribute("administrateur", Administrateur.ToString());
-            foreach(string livre in LesLivres) 
+            foreach(Livres livre in ListeLivres) 
             {
-                string isbnLivre = livre;
+                string isbnLivre = livre.ISBN;
                 XmlElement nouveauLivre = doc.CreateElement("livre");
                 nouveauLivre.InnerText = isbnLivre;
                 elementMembre.AppendChild(nouveauLivre);
@@ -72,11 +80,26 @@ namespace Model
 
         public void DeXML(XmlElement elem)
         {
+            //Nom = elem.GetAttribute("nom");
+            //Administrateur = elem.GetAttribute("administrateur");
+
+            ListeLivres = new ObservableCollection<Livres>();
             XmlNodeList lesLivres = elem.GetElementsByTagName("livre");
             foreach (XmlElement elementLivre in lesLivres)
             {
-                LesLivres.Add(elementLivre.GetAttribute("ISBN-13"));
+                //string isbn = elementLivre.GetAttribute("ISBN-13");
+                //if (_dictionnaire.ContainsKey(isbn))
+                //{
+                //    ListeLivres.Add(_dictionnaire[isbn]);
+                //}
+
+                ListeLivres.Add(_dictionnaire[elementLivre.GetAttribute("ISBN-13")]);
             }
+        }
+
+        public override string ToString()
+        {
+            return Nom;
         }
     }
 }
