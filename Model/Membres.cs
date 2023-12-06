@@ -20,12 +20,19 @@ namespace Model
             get;
         }
 
-        public ObservableCollection<Commandes> LesCommandes
+        public ObservableCollection<Commandes> ListeCommandesAttente
         {
             private set;
             get;
         }
-         
+
+        public ObservableCollection<Commandes> ListeCommandesTraitee
+        {
+            private set;
+            get;
+        }
+
+
         public string Nom
         {
             private set;
@@ -43,14 +50,8 @@ namespace Model
             Nom = nom;
             Administrateur = administrateur;
             ListeLivres = new ObservableCollection<Livres>();
-
-            //if (dictionnaire.ContainsKey(isbn))
-            //{
-            //    ListeLivres.Add(dictionnaire[isbn]);
-            //}
-
-            //if dictionairy contain key
-            //add ListeLivres
+            ListeCommandesAttente = new ObservableCollection<Commandes>();
+            ListeCommandesTraitee = new ObservableCollection<Commandes>();
         }
 
         public Membres(XmlElement element, Dictionary<string, Livres> dictionnaire)
@@ -80,10 +81,10 @@ namespace Model
 
         public void DeXML(XmlElement elem)
         {
-            //Nom = elem.GetAttribute("nom");
-            //Administrateur = elem.GetAttribute("administrateur");
-
             ListeLivres = new ObservableCollection<Livres>();
+            ListeCommandesAttente = new ObservableCollection<Commandes>();
+            ListeCommandesTraitee = new ObservableCollection<Commandes>();
+
             XmlNodeList lesLivres = elem.GetElementsByTagName("livre");
             foreach (XmlElement elementLivre in lesLivres)
             {
@@ -94,6 +95,24 @@ namespace Model
                 //}
 
                 ListeLivres.Add(_dictionnaire[elementLivre.GetAttribute("ISBN-13")]);
+            }
+
+            XmlNodeList lesCommandesMembres = elem.GetElementsByTagName("commande");
+            foreach (XmlElement unCommande in lesCommandesMembres)
+            {
+                string statut = unCommande.GetAttribute("statut");
+                string isbnCommande = unCommande.GetAttribute("ISBN-13");
+
+                Commandes desCommandes = new Commandes(statut, isbnCommande);
+                if (statut == "Attente")
+                {
+                    ListeCommandesAttente.Add(desCommandes);
+                }
+                else
+                {
+                    ListeCommandesTraitee.Add(desCommandes);
+                }
+                //ListeCommandesAttente.Add(desCommandes);
             }
         }
 

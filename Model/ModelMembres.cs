@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -13,6 +14,18 @@ namespace Model
             get;
         }
 
+        public ObservableCollection<Commandes> ListeCommandesAttente
+        {
+            private set;
+            get;
+        }
+
+        public ObservableCollection<Commandes> ListeCommandesTraitee
+        {
+            private set;
+            get;
+        }
+
         public ModelMembres(Dictionary<string, Livres> dictionnaire)
         {
             ListeMembres = new ObservableCollection<Membres>();
@@ -21,8 +34,12 @@ namespace Model
         }
 
 
-        public void ChargerFichierXml(string nomFichier)
+        public void ChargerMembresXml(string nomFichier)
         {
+            ListeMembres = new ObservableCollection<Membres>();
+            ListeCommandesAttente = new ObservableCollection<Commandes>();
+            ListeCommandesTraitee = new ObservableCollection<Commandes>();
+
             XmlDocument document = new XmlDocument();
             document.Load(nomFichier);
             XmlElement racine = document.DocumentElement;
@@ -32,7 +49,29 @@ namespace Model
 
             foreach (XmlElement unElement in lesMembresXML)
             {
-                ListeMembres.Add(new Membres(unElement, _dictionnaire));
+                Membres unMembre = new Membres(unElement, _dictionnaire);
+
+                XmlNodeList lesCommandesMembres = unElement.GetElementsByTagName("commande");
+                foreach(XmlElement unCommande in lesCommandesMembres)
+                {
+                    //Source: chatgpt
+                    string statut = unCommande.GetAttribute("statut");
+                    string isbn = unCommande.GetAttribute("ISBN-13");
+
+                    Commandes desCommandes = new Commandes(statut, isbn);
+
+                    if (statut == "Attente")
+                    {
+                        unMembre.ListeCommandesAttente.Add(desCommandes);
+                    }
+                    else
+                    {
+                        unMembre.ListeCommandesTraitee.Add(desCommandes);
+                    }
+                    
+                }
+                ListeMembres.Add(unMembre);
+                //ListeMembres.Add(new Membres(unElement, _dictionnaire));
             }
         }
 

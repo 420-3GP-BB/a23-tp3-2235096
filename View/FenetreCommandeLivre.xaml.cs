@@ -19,9 +19,21 @@ namespace View
     /// </summary>
     public partial class FenetreCommandeLivre : Window
     {
+        public static RoutedCommand ConfirmerBouton = new RoutedCommand();
         public FenetreCommandeLivre()
         {
             InitializeComponent();
+        }
+
+        private void ConfirmerLivre_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ConfirmerLivre_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ISBN.Text != "" && Titre.Text != "" && Auteur.Text != ""
+             && Éditeur.Text != "";
         }
     }
 }

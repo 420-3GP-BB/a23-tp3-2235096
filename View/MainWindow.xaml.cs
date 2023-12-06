@@ -21,6 +21,7 @@ namespace View
         public static RoutedCommand ModeAdmin = new RoutedCommand();
         public static RoutedCommand Quitter = new RoutedCommand();
         public static RoutedCommand AfficherLivres = new RoutedCommand();
+        public static RoutedCommand CommanderLivre = new RoutedCommand();
 
         private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
         private string pathFichier;
@@ -40,7 +41,8 @@ namespace View
             _viewModel.ChargerMembresEtLivres(pathFichier);
             //Pour afficher le nom du utilisateur active
             dernierUtilisateur.DataContext = _viewModel;
-
+            ListeBoxCommandesAttente.DataContext = _viewModel;
+            ListeBoxCommandesTraitee.DataContext = _viewModel;
         }
 
 
@@ -58,12 +60,18 @@ namespace View
 
         private void ChangerMode_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _viewModel?.MembresActive?.Administrateur ?? false;
+            e.CanExecute = true;
         }
                 
         private void Quitter_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private void CommanderLivre_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FenetreCommandeLivre fenetreCommandeLivre = new FenetreCommandeLivre();
+            fenetreCommandeLivre.Show();    
         }
 
     }

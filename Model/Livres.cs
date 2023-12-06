@@ -46,11 +46,9 @@ namespace Model
             Annee = annee;
         }
 
-
-
         public override string ToString()
         {
-            return Titre + ", " + Auteur + " (" + Annee + ")";
+            return $"{Titre}, {Auteur} ({Annee})";
             
         }
     }

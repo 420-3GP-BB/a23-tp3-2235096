@@ -18,10 +18,17 @@ namespace Model
             get;
             set;
         }
+
+        
         public Commandes(string statut, string isbn_livre) 
         {
             Statut = statut;
             ISBN_Livre = isbn_livre;
+        }
+
+        public override string ToString()
+        {
+            return Statut;
         }
     }
 }

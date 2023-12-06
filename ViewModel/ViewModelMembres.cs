@@ -64,15 +64,47 @@ namespace ViewModel
                 else
                 {
                     return MembresActive.ListeLivres;
-                    //return _modelLivres.ListeLivres;
+                    //return _modelLivres.ListeLivres; //Pour afficher tout les livres
                 }
             }
         }
 
+        public ObservableCollection<Commandes> ListeCommandesAttente
+        {
+            get
+            {
+                if (MembresActive == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return MembresActive.ListeCommandesAttente;
+                }
+            }
+        }
+
+        public ObservableCollection<Commandes> ListeCommandesTraitee
+        {
+            get
+            {
+                if (MembresActive == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return MembresActive.ListeCommandesTraitee;
+                }
+            }
+        }
+
+
+
         public ViewModelMembres()
         {
             _modelLivres = new ModelLivres();
-            _model = new ModelMembres(_modelLivres.DicoLivres);
+            _model = new ModelMembres(_modelLivres.DicLivres);
             MembresActive = null;
             _nomFichier = null;
         }
@@ -82,7 +114,7 @@ namespace ViewModel
         {
             _nomFichier = nomFichier;
             _modelLivres.ChargerLivres(_nomFichier);
-            _model.ChargerFichierXml(_nomFichier);
+            _model.ChargerMembresXml(_nomFichier);
             
 
             if (ListeMembres != null && ListeMembres.Count > 0)

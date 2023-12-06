@@ -18,7 +18,7 @@ namespace Model
             get;
         }
 
-        public Dictionary<string, Livres> DicoLivres
+        public Dictionary<string, Livres> DicLivres
         {
             set
             {
@@ -55,6 +55,7 @@ namespace Model
             foreach (XmlElement livres in LivresXML)
             {
                 string isbn = livres.GetAttribute("ISBN-13");
+                //Source: Chatgpt
                 string titre = livres.SelectSingleNode("titre").InnerText;
                 string auteur = livres.SelectSingleNode("auteur").InnerText;
                 string editeur = livres.SelectSingleNode("editeur").InnerText;
