@@ -69,7 +69,7 @@ namespace ViewModel
             }
         }
 
-        public ObservableCollection<Commandes> ListeCommandesAttente
+        public ObservableCollection<Livres> ListeCommandesAttente
         {
             get
             {
@@ -84,7 +84,7 @@ namespace ViewModel
             }
         }
 
-        public ObservableCollection<Commandes> ListeCommandesTraitee
+        public ObservableCollection<Livres> ListeCommandesTraitee
         {
             get
             {
@@ -115,7 +115,8 @@ namespace ViewModel
             _nomFichier = nomFichier;
             _modelLivres.ChargerLivres(_nomFichier);
             _model.ChargerMembresXml(_nomFichier);
-            
+            //_model.ChargerLesDonneesXml(_nomFichier);
+
 
             if (ListeMembres != null && ListeMembres.Count > 0)
             {
@@ -130,12 +131,6 @@ namespace ViewModel
             MembresActive = obj as Membres;
             OnPropertyChange("");
         }
-
-        //public void ChangerMembres(Object obj)
-        //{
-        //    MembresActive = obj as Membres;
-        //    OnPropertyChange("");
-        //}
 
         private void OnPropertyChange(string? property = null)
         {

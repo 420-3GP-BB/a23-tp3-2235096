@@ -43,6 +43,12 @@ namespace Model
             }
         }
 
+        //public Livres? AvoirLivre(string isbn)
+        //{
+        //    lesLivresDictionnaire.TryGetValue(isbn, out var livre);
+        //    return livre;
+        //}
+
         public void ChargerLivres(string nomFichier)
         {
             XmlDocument document = new XmlDocument();
@@ -65,7 +71,6 @@ namespace Model
                 Livres unLivre = new Livres(isbn, titre, auteur, editeur, annee);
                 AjouterLivres(isbn, unLivre);
             }
-
         }
     }
 }

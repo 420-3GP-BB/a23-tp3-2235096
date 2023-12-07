@@ -14,13 +14,13 @@ namespace Model
             get;
         }
 
-        public ObservableCollection<Commandes> ListeCommandesAttente
+        public ObservableCollection<Livres> ListeCommandesAttente
         {
             private set;
             get;
         }
 
-        public ObservableCollection<Commandes> ListeCommandesTraitee
+        public ObservableCollection<Livres> ListeCommandesTraitee
         {
             private set;
             get;
@@ -29,6 +29,8 @@ namespace Model
         public ModelMembres(Dictionary<string, Livres> dictionnaire)
         {
             ListeMembres = new ObservableCollection<Membres>();
+            ListeCommandesAttente = new ObservableCollection<Livres>();
+            ListeCommandesTraitee = new ObservableCollection<Livres>();
             _dictionnaire = dictionnaire;
 
         }
@@ -37,8 +39,8 @@ namespace Model
         public void ChargerMembresXml(string nomFichier)
         {
             ListeMembres = new ObservableCollection<Membres>();
-            ListeCommandesAttente = new ObservableCollection<Commandes>();
-            ListeCommandesTraitee = new ObservableCollection<Commandes>();
+            ListeCommandesAttente = new ObservableCollection<Livres>();
+            ListeCommandesTraitee = new ObservableCollection<Livres>();
 
             XmlDocument document = new XmlDocument();
             document.Load(nomFichier);
@@ -50,30 +52,55 @@ namespace Model
             foreach (XmlElement unElement in lesMembresXML)
             {
                 Membres unMembre = new Membres(unElement, _dictionnaire);
+                XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
 
-                XmlNodeList lesCommandesMembres = unElement.GetElementsByTagName("commande");
-                foreach(XmlElement unCommande in lesCommandesMembres)
+                foreach (XmlElement commandes in lesCommandes)
                 {
-                    //Source: chatgpt
-                    string statut = unCommande.GetAttribute("statut");
-                    string isbn = unCommande.GetAttribute("ISBN-13");
+                    string isbn = commandes.GetAttribute("ISBN-13");
+                    string statut = commandes.GetAttribute("statut");
 
-                    Commandes desCommandes = new Commandes(statut, isbn);
-
-                    if (statut == "Attente")
+                    //Source: Chatgpt
+                    if(_dictionnaire.ContainsKey(isbn))
                     {
-                        unMembre.ListeCommandesAttente.Add(desCommandes);
+                        Livres commandesMembre = _dictionnaire[isbn];
+                        if (statut == "Attente")
+                        {
+                            unMembre.ListeCommandesAttente.Add(commandesMembre);
+                            ListeCommandesAttente.Add(commandesMembre);
+                        }
+                        else
+                        {
+                            unMembre.ListeCommandesTraitee.Add(commandesMembre);
+                            ListeCommandesTraitee.Add((commandesMembre));
+                        }
                     }
-                    else
-                    {
-                        unMembre.ListeCommandesTraitee.Add(desCommandes);
-                    }
-                    
                 }
+
+                //XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
+                //foreach (XmlElement commandes in lesCommandes)
+                //{
+                //    string isbn = commandes.GetAttribute("ISBN-13");
+                //    string statut = commandes.GetAttribute("statut");
+
+                //Livres commandeMembre = new Livres(isbn, statut, "", "", 0);
+
+                //    if (_dictionnaire.ContainsKey(isbn))
+                //    {
+                //        if (statut == "attente")
+                //        {
+                //            unMembre.ListeCommandesAttente.Add(commandeMembre);
+                //            ListeCommandesAttente.Add(commandeMembre);
+                //        }
+                //        else
+                //        {   unMembre.ListeCommandesTraitee.Add(commandeMembre);
+                //            ListeCommandesTraitee.Add(commandeMembre);
+                //        }
+                //    }
+                //}
                 ListeMembres.Add(unMembre);
-                //ListeMembres.Add(new Membres(unElement, _dictionnaire));
+                }
             }
-        }
+        
 
         public void SauvegarderFichierXml(string nomFichier)
         {

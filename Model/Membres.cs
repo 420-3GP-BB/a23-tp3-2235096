@@ -20,13 +20,13 @@ namespace Model
             get;
         }
 
-        public ObservableCollection<Commandes> ListeCommandesAttente
+        public ObservableCollection<Livres> ListeCommandesAttente
         {
             private set;
             get;
         }
 
-        public ObservableCollection<Commandes> ListeCommandesTraitee
+        public ObservableCollection<Livres> ListeCommandesTraitee
         {
             private set;
             get;
@@ -50,8 +50,8 @@ namespace Model
             Nom = nom;
             Administrateur = administrateur;
             ListeLivres = new ObservableCollection<Livres>();
-            ListeCommandesAttente = new ObservableCollection<Commandes>();
-            ListeCommandesTraitee = new ObservableCollection<Commandes>();
+            ListeCommandesAttente = new ObservableCollection<Livres>();
+            ListeCommandesTraitee = new ObservableCollection<Livres>();
         }
 
         public Membres(XmlElement element, Dictionary<string, Livres> dictionnaire)
@@ -82,8 +82,8 @@ namespace Model
         public void DeXML(XmlElement elem)
         {
             ListeLivres = new ObservableCollection<Livres>();
-            ListeCommandesAttente = new ObservableCollection<Commandes>();
-            ListeCommandesTraitee = new ObservableCollection<Commandes>();
+            ListeCommandesAttente = new ObservableCollection<Livres>();
+            ListeCommandesTraitee = new ObservableCollection<Livres>();
 
             XmlNodeList lesLivres = elem.GetElementsByTagName("livre");
             foreach (XmlElement elementLivre in lesLivres)
@@ -97,23 +97,44 @@ namespace Model
                 ListeLivres.Add(_dictionnaire[elementLivre.GetAttribute("ISBN-13")]);
             }
 
-            XmlNodeList lesCommandesMembres = elem.GetElementsByTagName("commande");
-            foreach (XmlElement unCommande in lesCommandesMembres)
-            {
-                string statut = unCommande.GetAttribute("statut");
-                string isbnCommande = unCommande.GetAttribute("ISBN-13");
+            //XmlNodeList lesCommandes = elem.GetElementsByTagName("commande");
+            //foreach(XmlElement elementCommande in lesCommandes)
+            //{
+            //    string isbn = elementCommande.GetAttribute("ISBN-13");
+            //    string statut = elementCommande.GetAttribute("statut");
 
-                Commandes desCommandes = new Commandes(statut, isbnCommande);
-                if (statut == "Attente")
-                {
-                    ListeCommandesAttente.Add(desCommandes);
-                }
-                else
-                {
-                    ListeCommandesTraitee.Add(desCommandes);
-                }
-                //ListeCommandesAttente.Add(desCommandes);
-            }
+            //    if (_dictionnaire.ContainsKey(isbn))
+            //    {
+            //        Livres commandeMembre = _dictionnaire[isbn];
+            //        if(statut == "Attente")
+            //        {
+            //            ListeCommandesAttente.Add(commandeMembre);
+            //        }
+            //        else
+            //        {
+            //            ListeCommandesTraitee.Add(commandeMembre);
+            //        }
+            //    }
+            //}
+
+
+            //XmlNodeList lesCommandesMembres = elem.GetElementsByTagName("commande");
+            //foreach (XmlElement unCommande in lesCommandesMembres)
+            //{
+            //    string statut = unCommande.GetAttribute("statut");
+            //    string isbnCommande = unCommande.GetAttribute("ISBN-13");
+
+            //    Commandes desCommandes = new Commandes(statut, isbnCommande);
+            //    if (statut == "Attente")
+            //    {
+            //        ListeCommandesAttente.Add(desCommandes);
+            //    }
+            //    else
+            //    {
+            //        ListeCommandesTraitee.Add(desCommandes);
+            //    }
+            //    ListeCommandesAttente.Add(desCommandes);
+            //}
         }
 
         public override string ToString()

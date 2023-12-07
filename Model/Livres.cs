@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,18 @@ namespace Model
             private set;
             get;
         }
+
+        //public ObservableCollection<Livres> ListeCommandesAttente
+        //{
+        //    private set;
+        //    get;
+        //}
+
+        //public ObservableCollection<Livres> ListeCommandesTraitee
+        //{
+        //    private set;
+        //    get;
+        //}
 
         public Livres(string isbn , string titre, string auteur, string editeur, int annee)
         {
