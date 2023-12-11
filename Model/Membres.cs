@@ -45,7 +45,7 @@ namespace Model
             get;
         }
 
-        public Membres(string nom, bool administrateur) //Dictionairy, ISBNs dans user dans parathèses
+        public Membres(string nom, bool administrateur)
         {
             Nom = nom;
             Administrateur = administrateur;
@@ -62,84 +62,82 @@ namespace Model
             DeXML(element); 
         }
 
-        
 
         public XmlElement VersXML(XmlDocument doc)
         {
             XmlElement elementMembre = doc.CreateElement("membre");
             elementMembre.SetAttribute("nom", Nom);
             elementMembre.SetAttribute("administrateur", Administrateur.ToString());
+
+
+            //Source: Inspirer du Module 7, exercice 2
             foreach(Livres livre in ListeLivres) 
             {
                 string isbnLivre = livre.ISBN;
                 XmlElement nouveauLivre = doc.CreateElement("livre");
-                nouveauLivre.InnerText = isbnLivre;
+                nouveauLivre.SetAttribute("ISBN-13", isbnLivre);
                 elementMembre.AppendChild(nouveauLivre);
             }
+
+            foreach (Livres attenteLivre in ListeCommandesAttente)
+            {
+                string isbnCommande = attenteLivre.ISBN;
+                XmlElement nouveauCommande = doc.CreateElement("commande");
+                nouveauCommande.SetAttribute("statut", "Attente");
+                nouveauCommande.SetAttribute("ISBN-13", isbnCommande);
+                elementMembre.AppendChild(nouveauCommande);
+            }
+
+            foreach(Livres traiteeLivre in ListeCommandesTraitee)
+            {
+                string isbnCommande = traiteeLivre.ISBN;
+                XmlElement nouveauCommande = doc.CreateElement("commande");
+                nouveauCommande.SetAttribute("statut", "Traitee");
+                nouveauCommande.SetAttribute("ISBN-13", isbnCommande);
+                elementMembre.AppendChild(nouveauCommande);
+            }
+
             return elementMembre;
         }
 
         public void DeXML(XmlElement elem)
         {
-            ListeLivres = new ObservableCollection<Livres>();
+            //ListeLivres = new ObservableCollection<Livres>();
             ListeCommandesAttente = new ObservableCollection<Livres>();
             ListeCommandesTraitee = new ObservableCollection<Livres>();
 
             XmlNodeList lesLivres = elem.GetElementsByTagName("livre");
             foreach (XmlElement elementLivre in lesLivres)
             {
-                //string isbn = elementLivre.GetAttribute("ISBN-13");
-                //if (_dictionnaire.ContainsKey(isbn))
-                //{
-                //    ListeLivres.Add(_dictionnaire[isbn]);
-                //}
-
                 ListeLivres.Add(_dictionnaire[elementLivre.GetAttribute("ISBN-13")]);
             }
-
-            //XmlNodeList lesCommandes = elem.GetElementsByTagName("commande");
-            //foreach(XmlElement elementCommande in lesCommandes)
-            //{
-            //    string isbn = elementCommande.GetAttribute("ISBN-13");
-            //    string statut = elementCommande.GetAttribute("statut");
-
-            //    if (_dictionnaire.ContainsKey(isbn))
-            //    {
-            //        Livres commandeMembre = _dictionnaire[isbn];
-            //        if(statut == "Attente")
-            //        {
-            //            ListeCommandesAttente.Add(commandeMembre);
-            //        }
-            //        else
-            //        {
-            //            ListeCommandesTraitee.Add(commandeMembre);
-            //        }
-            //    }
-            //}
-
-
-            //XmlNodeList lesCommandesMembres = elem.GetElementsByTagName("commande");
-            //foreach (XmlElement unCommande in lesCommandesMembres)
-            //{
-            //    string statut = unCommande.GetAttribute("statut");
-            //    string isbnCommande = unCommande.GetAttribute("ISBN-13");
-
-            //    Commandes desCommandes = new Commandes(statut, isbnCommande);
-            //    if (statut == "Attente")
-            //    {
-            //        ListeCommandesAttente.Add(desCommandes);
-            //    }
-            //    else
-            //    {
-            //        ListeCommandesTraitee.Add(desCommandes);
-            //    }
-            //    ListeCommandesAttente.Add(desCommandes);
-            //}
         }
 
         public override string ToString()
         {
             return Nom;
+        }
+
+        public void AjouterLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
+        {
+            ListeCommandesAttente.Add(new Livres(leISBN, Titre, Auteur, Editeur, Annee));
+            
+        }
+
+        public void RetirerLivre(string isbn)
+        {
+            int index = 0;
+            bool chercher = false;
+
+            while(index < ListeCommandesAttente.Count && !chercher)
+            {
+                if (ListeCommandesAttente[index].ISBN.Equals(isbn))
+                {
+                    ListeCommandesAttente.RemoveAt(index);
+                    chercher = true;
+                }
+                index++;
+            }
         }
     }
 }

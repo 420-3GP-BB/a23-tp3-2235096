@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
@@ -20,20 +21,32 @@ namespace View
     public partial class FenetreCommandeLivre : Window
     {
         public static RoutedCommand ConfirmerBouton = new RoutedCommand();
-        public FenetreCommandeLivre()
+        private ViewModelMembres _viewModel;
+        public FenetreCommandeLivre(ViewModelMembres viewModel)
         {
+            _viewModel = viewModel;
             InitializeComponent();
+            DataContext = _viewModel;
         }
 
         private void ConfirmerLivre_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            int AnneeLivre;
+            if (int.TryParse(Annee.Text, out AnneeLivre))
+            {
+                    _viewModel.AjouterLivre(ISBN.Text, Titre.Text, Auteur.Text, Éditeur.Text, AnneeLivre);
+            }
+            Close();
         }
 
         private void ConfirmerLivre_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ISBN.Text != "" && Titre.Text != "" && Auteur.Text != ""
-             && Éditeur.Text != "";
+            int AnneeLivre;
+            if (int.TryParse(Annee.Text, out AnneeLivre))
+            {
+                e.CanExecute = ISBN.Text.Length == 13 && Titre.Text != "" && Auteur.Text != ""
+                && Éditeur.Text != "" && AnneeLivre > -3000;
+            }
         }
     }
 }

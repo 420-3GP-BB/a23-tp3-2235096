@@ -14,6 +14,8 @@ namespace ViewModel
         // Variable de type string pour chemin du fichier xml
         private string? _nomFichier;
 
+        // variable privé pour stocké valeur de MembresActive
+        private Membres? _membresActive; //Source: chatgpt
         public Membres? MembresActive
         {
             //Envoi la valeur actuelle de _membreActive
@@ -30,11 +32,7 @@ namespace ViewModel
             }
             
         }
-        // variable privé pour stocké valeur de MembresActive
-        private Membres? _membresActive; //Source: chatgpt
-
-
-
+        
         // Maybe will need this
 
         //public string DernierUser
@@ -100,11 +98,10 @@ namespace ViewModel
         }
 
 
-
         public ViewModelMembres()
         {
             _modelLivres = new ModelLivres();
-            _model = new ModelMembres(_modelLivres.DicLivres);
+            _model = new ModelMembres(_modelLivres.DicLivres, _modelLivres);
             MembresActive = null;
             _nomFichier = null;
         }
@@ -142,6 +139,34 @@ namespace ViewModel
             if (_nomFichier != null)
             {
                 _model.SauvegarderFichierXml( _nomFichier );
+            }
+        }
+
+
+        public void AjouterLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
+        {
+            if (MembresActive != null)
+            {
+                MembresActive.AjouterLivre(leISBN, Titre, Auteur, Editeur, Annee);
+                SauvegarderModification();
+            }
+        }
+
+        public void RetirerLivres(object livre)
+        {
+            if(MembresActive != null)
+            {
+                Livres leLivre = livre as Livres;
+                MembresActive.RetirerLivre(leLivre.ISBN);
+                SauvegarderModification();
+            }
+        }
+
+        public void TransfererLivre(object livre)
+        {
+            if(MembresActive != null)
+            {
+
             }
         }
     }

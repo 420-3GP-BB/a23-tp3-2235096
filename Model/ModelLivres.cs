@@ -33,9 +33,10 @@ namespace Model
             ListeLivres = new ObservableCollection<Livres>();
         }
 
-        //Source: chatgpt
+        
         public void AjouterLivres (string isbn, Livres livre)
         {
+            //Source: chatgpt
             if (!lesLivresDictionnaire.ContainsKey(isbn))
             {
                 lesLivresDictionnaire[isbn] = livre;
@@ -72,5 +73,41 @@ namespace Model
                 AjouterLivres(isbn, unLivre);
             }
         }
+
+        //public void SauvegarderLivresXml(XmlDocument document, XmlElement racine)
+        //{
+        //    XmlElement elementLivres = document.CreateElement("livres");
+        //    racine.AppendChild(elementLivres);
+
+        //    XmlElement unElementLivre = document.CreateElement("livre");
+
+        //}
+
+
+
+        //public bool LivreExiste(string nomLivre)
+        //{
+        //    bool livrePresente = false;
+        //    foreach (Livres livre in ListeLivres)
+        //    {
+        //        if (livre.Titre == nomLivre)
+        //        {
+        //            livrePresente = true;
+        //            break;
+        //        }
+        //    }
+        //    return livrePresente;
+        //}
+
+        //public Livres CreerLivre(string isbn, string nomLivre, string auteur, string editeur, int annee)
+        //{
+        //    Livres? newLivre = null;
+        //    if (!LivreExiste(nomLivre))
+        //    {
+        //        newLivre = new Livres(isbn, nomLivre, auteur, editeur, annee);
+        //        ListeLivres.Add(newLivre);
+        //    }
+        //    return newLivre;
+        //}
     }
 }

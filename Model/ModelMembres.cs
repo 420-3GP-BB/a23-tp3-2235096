@@ -26,26 +26,30 @@ namespace Model
             get;
         }
 
-        public ModelMembres(Dictionary<string, Livres> dictionnaire)
+        private ModelLivres _modelLivres;
+        public ModelMembres(Dictionary<string, Livres> dictionnaire, ModelLivres modelLivres)
         {
             ListeMembres = new ObservableCollection<Membres>();
             ListeCommandesAttente = new ObservableCollection<Livres>();
             ListeCommandesTraitee = new ObservableCollection<Livres>();
             _dictionnaire = dictionnaire;
-
+            _modelLivres = modelLivres;
         }
+
+
 
 
         public void ChargerMembresXml(string nomFichier)
         {
-            ListeMembres = new ObservableCollection<Membres>();
-            ListeCommandesAttente = new ObservableCollection<Livres>();
-            ListeCommandesTraitee = new ObservableCollection<Livres>();
+            //ListeMembres = new ObservableCollection<Membres>();
+            //ListeCommandesAttente = new ObservableCollection<Livres>();
+            //ListeCommandesTraitee = new ObservableCollection<Livres>();
 
             XmlDocument document = new XmlDocument();
             document.Load(nomFichier);
             XmlElement racine = document.DocumentElement;
 
+            //Source: Inspirer du solution module 7, exercice 2
             XmlElement unNoeud = racine["membres"];
             XmlNodeList lesMembresXML = unNoeud.GetElementsByTagName("membre");
 
@@ -54,53 +58,30 @@ namespace Model
                 Membres unMembre = new Membres(unElement, _dictionnaire);
                 XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
 
-                foreach (XmlElement commandes in lesCommandes)
+                foreach (XmlElement unCommandes in lesCommandes)
                 {
-                    string isbn = commandes.GetAttribute("ISBN-13");
-                    string statut = commandes.GetAttribute("statut");
+                    string isbnDuLivre = unCommandes.GetAttribute("ISBN-13");
+                    string statut = unCommandes.GetAttribute("statut");
 
-                    //Source: Chatgpt
-                    if(_dictionnaire.ContainsKey(isbn))
+                    if (_dictionnaire.ContainsKey(isbnDuLivre))//Source: Chatgpt
                     {
-                        Livres commandesMembre = _dictionnaire[isbn];
+                        Livres commandesMembre = _dictionnaire[isbnDuLivre];
                         if (statut == "Attente")
                         {
                             unMembre.ListeCommandesAttente.Add(commandesMembre);
-                            ListeCommandesAttente.Add(commandesMembre);
+                            //ListeCommandesAttente.Add(commandesMembre);
                         }
                         else
                         {
                             unMembre.ListeCommandesTraitee.Add(commandesMembre);
-                            ListeCommandesTraitee.Add((commandesMembre));
+                            //ListeCommandesTraitee.Add((commandesMembre));
                         }
                     }
                 }
-
-                //XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
-                //foreach (XmlElement commandes in lesCommandes)
-                //{
-                //    string isbn = commandes.GetAttribute("ISBN-13");
-                //    string statut = commandes.GetAttribute("statut");
-
-                //Livres commandeMembre = new Livres(isbn, statut, "", "", 0);
-
-                //    if (_dictionnaire.ContainsKey(isbn))
-                //    {
-                //        if (statut == "attente")
-                //        {
-                //            unMembre.ListeCommandesAttente.Add(commandeMembre);
-                //            ListeCommandesAttente.Add(commandeMembre);
-                //        }
-                //        else
-                //        {   unMembre.ListeCommandesTraitee.Add(commandeMembre);
-                //            ListeCommandesTraitee.Add(commandeMembre);
-                //        }
-                //    }
-                //}
                 ListeMembres.Add(unMembre);
-                }
             }
-        
+        }
+
 
         public void SauvegarderFichierXml(string nomFichier)
         {
@@ -116,6 +97,36 @@ namespace Model
                 XmlElement element = unMembre.VersXML(document);
                 elementMembre.AppendChild(element);
             }
+
+            //New code:
+            XmlElement elementLivres = document.CreateElement("livres");
+            racine.AppendChild(elementLivres);
+
+            foreach (Livres unLivre in _modelLivres.ListeLivres) //Source chatgpt
+            {
+                XmlElement elementLivre = document.CreateElement("livre");
+                elementLivre.SetAttribute("ISBN-13", unLivre.ISBN);
+
+                XmlElement unTitre = document.CreateElement("titre");
+                unTitre.InnerText = unLivre.Titre;
+                elementLivre.AppendChild(unTitre);
+
+                XmlElement unAuteur = document.CreateElement("auteur");
+                unAuteur.InnerText = unLivre.Auteur;
+                elementLivre.AppendChild(unAuteur);
+
+                XmlElement unEditeur = document.CreateElement("editeur");
+                unEditeur.InnerText = unLivre.Editeur;
+                elementLivre.AppendChild (unEditeur);
+
+                XmlElement uneAnnee = document.CreateElement("annee");
+                uneAnnee.InnerText = unLivre.Annee.ToString();
+                elementLivre.AppendChild(uneAnnee);
+
+                elementLivres.AppendChild(elementLivre);
+            }
+            //end new code
+
             document.Save(nomFichier);
         }
     }

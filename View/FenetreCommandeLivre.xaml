@@ -34,6 +34,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+            
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -46,12 +47,14 @@
                        Grid.Column="0"
                        FontSize="20">
             </TextBlock>
+            
             <TextBox x:Name="ISBN"
                      Text="{Binding ISBN, Mode=TwoWay}"
                      Margin="5"
                      VerticalAlignment="Center"
                      Grid.Row="0"
                      Grid.Column="1"/>
+            
             <TextBlock Text="Titre:"
                        Margin="5"
                        VerticalAlignment="Center"
@@ -59,12 +62,14 @@
                        Grid.Column="0"
                        FontSize="20">
             </TextBlock>
+            
             <TextBox x:Name="Titre"
                      Text="{Binding Titre, Mode=TwoWay}"
                      Margin="5"
                      VerticalAlignment="Center"
                      Grid.Row="1"
                      Grid.Column="1"/>
+            
             <TextBlock Text="Auteur:"
                        Margin="5"
                        VerticalAlignment="Center"
@@ -72,12 +77,14 @@
                        Grid.Column="0"
                        FontSize="20">
             </TextBlock>
+            
             <TextBox x:Name="Auteur"
                      Text="{Binding Auteur, Mode=TwoWay}"
                      Margin="5"
                      VerticalAlignment="Center"
                      Grid.Row="2"
                      Grid.Column="1"/>
+            
             <TextBlock Text="Éditeur:"
                        Margin="5"
                        VerticalAlignment="Center"
@@ -85,12 +92,14 @@
                        Grid.Column="0"
                        FontSize="20">
             </TextBlock>
+            
             <TextBox x:Name="Éditeur"
                      Text="{Binding Éditeur, Mode=TwoWay}"
                      Margin="5"
                      VerticalAlignment="Center"
                      Grid.Row="3"
                      Grid.Column="1"/>
+            
             <TextBlock Text="Année:"
                        Margin="5"
                        VerticalAlignment="Center"
@@ -98,19 +107,18 @@
                        Grid.Column="0"
                        FontSize="20">
             </TextBlock>
-            <TextBox x:Name="Année"
+            
+            <TextBox x:Name="Annee"
                      Text="{Binding Année, Mode=TwoWay}"
                      Margin="5"
                      VerticalAlignment="Center"
                      Grid.Row="4"
                      Grid.Column="1"/>
-            
         </Grid>
+        
         <Button Command="{x:Static local:FenetreCommandeLivre.ConfirmerBouton}"
                 Content="Confirmer la commande" 
                 Height="20" 
-                Width="150"
-                />
-
+                Width="150"/>
     </StackPanel>
 </Window>

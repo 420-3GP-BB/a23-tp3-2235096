@@ -25,6 +25,14 @@
 
         <CommandBinding Command="{x:Static local:MainWindow.CommanderLivre}"
                         Executed="CommanderLivre_Executed"/>
+
+        <CommandBinding Command="{x:Static local:MainWindow.RetirerLivre}"
+                        CanExecute="RetirerLivre_CanExecute"
+                        Executed="RetirerLivre_Executed"/>
+
+        <CommandBinding Command="{x:Static local:MainWindow.TransfererLivre}"
+                        CanExecute="TransfererLivre_CanExecute"
+                        Executed="TransfererLivre_Executed"/>
     </Window.CommandBindings>
 
     <Window.Resources>
@@ -99,6 +107,7 @@
 
                 <ListBox x:Name="ListBoxLivres"
                          ItemsSource="{Binding ListeLivres}"
+                         SelectedItem=""
                          Width="610" 
                          Margin="5,36,5,47"
                          />
@@ -121,7 +130,8 @@
                     Margin="386,0,0,42" 
                     Height="23" 
                     Width="139"
-                    Style="{StaticResource boutonCouleur}">
+                    Style="{StaticResource boutonCouleur}"
+                    Command="{x:Static local:MainWindow.TransfererLivre}">
             </Button>
 
             <TextBlock Text="Commandes en attentes"
@@ -139,12 +149,11 @@
                     Width="600" 
                     Margin="650,131,0,0"
                     VerticalAlignment="Top" 
-                    Height="257" >
+                    Height="257">
 
                 <ListBox x:Name="ListeBoxCommandesAttente"
                          ItemsSource="{Binding ListeCommandesAttente}"
                          Margin="5,38,5,43"/>
-
             </Border>
 
             <Button Content="Annuler commande"
@@ -153,7 +162,8 @@
                     Margin="884,350,0,0" 
                     Height="23" 
                     Width="139"
-                    Style="{StaticResource boutonCouleur}">
+                    Style="{StaticResource boutonCouleur}"
+                    Command="{x:Static local:MainWindow.RetirerLivre}">
             </Button>
 
             <TextBlock Text="Commandes traitées"

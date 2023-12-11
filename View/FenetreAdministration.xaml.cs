@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
@@ -19,14 +20,18 @@ namespace View
     /// </summary>
     public partial class FenetreAdministration : Window
     {
-        public FenetreAdministration()
+        private ViewModelMembres _viewModel;
+        public FenetreAdministration(ViewModelMembres viewModel)
         {
+            _viewModel = viewModel;
             InitializeComponent();
+            DataContext = _viewModel;
+            ListeCommandeAttente.DataContext = _viewModel;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }

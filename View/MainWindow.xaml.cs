@@ -22,6 +22,9 @@ namespace View
         public static RoutedCommand Quitter = new RoutedCommand();
         public static RoutedCommand AfficherLivres = new RoutedCommand();
         public static RoutedCommand CommanderLivre = new RoutedCommand();
+        public static RoutedCommand RetirerLivre = new RoutedCommand();
+        public static RoutedCommand TransfererLivre = new RoutedCommand();
+
 
         private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
         private string pathFichier;
@@ -54,7 +57,7 @@ namespace View
 
         private void ChangerMode_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FenetreAdministration fenetreAdministration = new FenetreAdministration();
+            FenetreAdministration fenetreAdministration = new FenetreAdministration(_viewModel);
             fenetreAdministration.Show();
         }
 
@@ -70,8 +73,29 @@ namespace View
 
         private void CommanderLivre_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FenetreCommandeLivre fenetreCommandeLivre = new FenetreCommandeLivre();
+            FenetreCommandeLivre fenetreCommandeLivre = new FenetreCommandeLivre(_viewModel);
             fenetreCommandeLivre.Show();    
+        }
+
+        private void RetirerLivre_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ListeBoxCommandesAttente.SelectedItem != null;
+        }
+
+        private void RetirerLivre_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _viewModel.RetirerLivres(ListeBoxCommandesAttente.SelectedItem);
+        }
+
+        public void TransfererLivre_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ListBoxLivres.SelectedItem != null;
+        }
+
+        public void TransfererLivre_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FenetreChoixUtilisateur fenetreChoixUtilisateur = new FenetreChoixUtilisateur(_viewModel);
+            fenetreChoixUtilisateur.Show();
         }
 
     }

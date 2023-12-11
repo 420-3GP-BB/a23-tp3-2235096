@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Model
 {
@@ -38,18 +39,6 @@ namespace Model
             get;
         }
 
-        //public ObservableCollection<Livres> ListeCommandesAttente
-        //{
-        //    private set;
-        //    get;
-        //}
-
-        //public ObservableCollection<Livres> ListeCommandesTraitee
-        //{
-        //    private set;
-        //    get;
-        //}
-
         public Livres(string isbn , string titre, string auteur, string editeur, int annee)
         {
             ISBN = isbn;
@@ -59,10 +48,11 @@ namespace Model
             Annee = annee;
         }
 
+
+
         public override string ToString()
         {
             return $"{Titre}, {Auteur} ({Annee})";
-            
         }
     }
 }
