@@ -117,7 +117,7 @@ namespace Model
             XmlElement elementLivres = document.CreateElement("livres");
             racine.AppendChild(elementLivres);
 
-            foreach (Livres unLivre in _modelLivres.ListeLivres) //Source chatgpt
+            foreach (Livres unLivre in _modelLivres.ListeLivres) //Source: chatgpt
             {
                 XmlElement elementLivre = document.CreateElement("livre");
                 elementLivre.SetAttribute("ISBN-13", unLivre.ISBN);
