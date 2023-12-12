@@ -15,25 +15,23 @@ namespace ViewModel
         private string? _nomFichier;
 
         // variable privé pour stocké valeur de MembresActive
-        private Membres? _membresActive; //Source: chatgpt
+        private Membres? unMembreActive; //Source: chatgpt
         public Membres? MembresActive
         {
             //Envoi la valeur actuelle de _membreActive
-            get => _membresActive;
+            get => unMembreActive;
             set
             {
                 //Condition pour voir si la la propriété a changé
-                if (_membresActive != value)
+                if (unMembreActive != value)
                 {
                     //Si vrai, attribut la nouvelle valeur
-                    _membresActive = value; 
+                    unMembreActive = value; 
                     OnPropertyChange(nameof(MembresActive));
                 }
             }
             
         }
-        
-        // Maybe will need this
 
         //public string DernierUser
         //{
@@ -93,6 +91,53 @@ namespace ViewModel
                 else
                 {
                     return MembresActive.ListeCommandesTraitee;
+                }
+            }
+        }
+
+        public ObservableCollection<Livres> ListeAttenteAdmin
+        {
+            get
+            {
+                if (MembresActive == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _model.ListeAttenteAdmin;
+                }
+            }
+        }
+
+        public ObservableCollection<Livres> ListeTraiteeAdmin
+        {
+            get
+            {
+                if (MembresActive == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _model.ListeTraiteeAdmin;
+                }
+            }
+        }
+
+        //new code
+
+        public bool ModeAdmin
+        {
+            get
+            {
+                if (MembresActive == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return (bool)MembresActive.Administrateur;
                 }
             }
         }
@@ -162,12 +207,22 @@ namespace ViewModel
             }
         }
 
-        public void TransfererLivre(object livre)
-        {
-            if(MembresActive != null)
-            {
 
-            }
-        }
+        /**
+         * Code pour transferer livre. Ce code n'est pas finit
+         */
+
+        //public void TransfererLivre(object livre)
+        //{
+            
+        //    if(MembresActive != null)
+        //    {
+        //        AjouterLivre();
+        //        Livres unLivre = livre as Livres;
+        //        MembresActive.TransfererLivre(unLivre.ISBN, unLivre.Titre, unLivre.Auteur, unLivre.Editeur, unLivre.Annee);
+        //        MembresActive.RetirerLivre();
+        //        SauvegarderModification();
+        //    }
+        //}
     }
 }

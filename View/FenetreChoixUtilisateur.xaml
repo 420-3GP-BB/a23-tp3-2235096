@@ -9,6 +9,13 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="LightBlue">
+    
+    <Window.Resources>
+        <Style x:Key="boutonCouleur">
+            <Setter Property="Button.Background" Value="AliceBlue"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <TextBlock Text="Choisissez un utilisateur"
                    HorizontalAlignment="Center"
@@ -24,7 +31,6 @@
         </TextBlock>
 
         <ComboBox x:Name="ComboBoxMembres"
-                  SelectionChanged="ComboBoxUtilisateur_SelectionChanged"
                   ItemsSource="{Binding ListeMembres, Mode=OneWay}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
@@ -39,7 +45,8 @@
                 Margin="0,114,0,0" 
                 Height="20" 
                 Width="100"
-                Click="BoutonConfirmer_Click">
+                Click="BoutonConfirmer_Click"
+                Style="{StaticResource boutonCouleur}">
         </Button>
 
     </Grid>

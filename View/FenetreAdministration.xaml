@@ -12,6 +12,12 @@
         WindowStartupLocation="CenterScreen"
         Background="LightBlue">
 
+    <Window.Resources>
+        <Style x:Key="boutonCouleur">
+            <Setter Property="Button.Background" Value="AliceBlue"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <TextBlock Text="Commandes en attente"
            Width="296"
@@ -23,14 +29,15 @@
            Margin="76,42,0,0"/>
 
         <Border HorizontalAlignment="Left"
-        BorderBrush="Black"
-        BorderThickness="5" 
-        Width="362"
-        VerticalAlignment="Top" 
-        Height="264" Margin="10,88,0,0" >
+                BorderBrush="Black"
+                BorderThickness="5" 
+                Width="362"
+                VerticalAlignment="Top" 
+                Height="264" 
+                Margin="10,88,0,0" >
 
             <ListBox x:Name="ListeCommandeAttente"
-                     ItemsSource="{Binding ListeCommandesAttente}"
+                     ItemsSource="{Binding ListeAttenteAdmin}"
                      Margin="0,-1,0,-1" />
         </Border>
 
@@ -49,7 +56,9 @@
                 VerticalAlignment="Top" 
                 Height="264" Margin="412,88,0,0" >
 
-            <ListBox Margin="0,-1,0,-1" />
+            <ListBox x:Name="ListeCommandeTraitee"
+                     Margin="0,-1,0,-1" 
+                     ItemsSource="{Binding ListeTraiteeAdmin}"/>
         </Border>
 
         <Button Content="Revenir"
@@ -57,7 +66,9 @@
                 VerticalAlignment="Bottom"
                 Margin="0,0,18,28" 
                 Height="23"
-                Width="139">
+                Width="139"
+                Click="BoutonRevenir_Click"
+                Style="{StaticResource boutonCouleur}">
         </Button>
 
     </Grid>

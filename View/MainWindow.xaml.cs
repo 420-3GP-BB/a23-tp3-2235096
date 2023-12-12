@@ -32,20 +32,20 @@ namespace View
         private ViewModelMembres _viewModel;
 
         public MainWindow()
-        { 
-            InitializeComponent();
+        {
             pathFichier = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-            DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
+           DIR_SEPARATOR + "Fichiers-3GP" + DIR_SEPARATOR + "bibliotheque.xml";
 
             _viewModel = new ViewModelMembres();
-
+            InitializeComponent();
+            _viewModel.ChargerMembresEtLivres(pathFichier);
             // Pour afficher les livres du utilisateur active dans listBox 
             ListBoxLivres.DataContext = _viewModel;
-            _viewModel.ChargerMembresEtLivres(pathFichier);
             //Pour afficher le nom du utilisateur active
             dernierUtilisateur.DataContext = _viewModel;
             ListeBoxCommandesAttente.DataContext = _viewModel;
             ListeBoxCommandesTraitee.DataContext = _viewModel;
+
         }
 
 
@@ -63,7 +63,8 @@ namespace View
 
         private void ChangerMode_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            //e.CanExecute = true;
+            e.CanExecute = _viewModel.ModeAdmin == true;
         }
                 
         private void Quitter_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -92,10 +93,16 @@ namespace View
             e.CanExecute = ListBoxLivres.SelectedItem != null;
         }
 
+        /**
+        * Methode pour transferer des livres. Ce code est incomplet.
+        */
         public void TransfererLivre_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FenetreChoixUtilisateur fenetreChoixUtilisateur = new FenetreChoixUtilisateur(_viewModel);
             fenetreChoixUtilisateur.Show();
+
+            //Ce code est pour transfer du livre mais incomplete
+            //_viewModel.TransfererLivre(ListBoxLivres.SelectedItem);
         }
 
     }

@@ -29,10 +29,6 @@ namespace View
             DataContext = _viewModel;
         }
 
-        private void ComboBoxUtilisateur_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void BoutonConfirmer_Click(object sender, RoutedEventArgs e)
         {

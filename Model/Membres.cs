@@ -32,6 +32,17 @@ namespace Model
             get;
         }
 
+        public ObservableCollection<Livres> ListeAttenteAdmin
+        {
+            set;
+            get;
+        }
+
+        public ObservableCollection<Livres> ListeTraiteeAdmin
+        {
+            set;
+            get;
+        }
 
         public string Nom
         {
@@ -41,7 +52,7 @@ namespace Model
 
         public bool? Administrateur
         {
-            private set;
+            set;
             get;
         }
 
@@ -52,6 +63,8 @@ namespace Model
             ListeLivres = new ObservableCollection<Livres>();
             ListeCommandesAttente = new ObservableCollection<Livres>();
             ListeCommandesTraitee = new ObservableCollection<Livres>();
+            ListeAttenteAdmin = new ObservableCollection<Livres>();
+            ListeTraiteeAdmin = new ObservableCollection<Livres>();
         }
 
         public Membres(XmlElement element, Dictionary<string, Livres> dictionnaire)
@@ -121,7 +134,6 @@ namespace Model
         public void AjouterLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
         {
             ListeCommandesAttente.Add(new Livres(leISBN, Titre, Auteur, Editeur, Annee));
-            
         }
 
         public void RetirerLivre(string isbn)
@@ -139,5 +151,14 @@ namespace Model
                 index++;
             }
         }
+
+        /**
+         * Code pour transferer livre. Ce code n'est pas fini
+         */
+
+        //public void TransfererLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
+        //{
+        //    ListeLivres.Add(new Livres(leISBN, Titre, Auteur, Editeur, Annee));
+        //}
     }
 }

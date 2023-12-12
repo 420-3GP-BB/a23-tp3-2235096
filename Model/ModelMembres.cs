@@ -26,6 +26,18 @@ namespace Model
             get;
         }
 
+        public ObservableCollection<Livres> ListeAttenteAdmin
+        {
+            set;
+            get;
+        }
+
+        public ObservableCollection<Livres> ListeTraiteeAdmin
+        {
+            set;
+            get;
+        }
+
         private ModelLivres _modelLivres;
         public ModelMembres(Dictionary<string, Livres> dictionnaire, ModelLivres modelLivres)
         {
@@ -34,6 +46,8 @@ namespace Model
             ListeCommandesTraitee = new ObservableCollection<Livres>();
             _dictionnaire = dictionnaire;
             _modelLivres = modelLivres;
+            ListeAttenteAdmin = new ObservableCollection<Livres>();
+            ListeTraiteeAdmin = new ObservableCollection<Livres>(); 
         }
 
 
@@ -41,10 +55,6 @@ namespace Model
 
         public void ChargerMembresXml(string nomFichier)
         {
-            //ListeMembres = new ObservableCollection<Membres>();
-            //ListeCommandesAttente = new ObservableCollection<Livres>();
-            //ListeCommandesTraitee = new ObservableCollection<Livres>();
-
             XmlDocument document = new XmlDocument();
             document.Load(nomFichier);
             XmlElement racine = document.DocumentElement;
@@ -56,8 +66,14 @@ namespace Model
             foreach (XmlElement unElement in lesMembresXML)
             {
                 Membres unMembre = new Membres(unElement, _dictionnaire);
-                XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
 
+                //New code
+                string admin = unElement.GetAttribute("administrateur");
+                unMembre.Administrateur = bool.Parse(admin);
+                //End new code
+
+                XmlNodeList lesCommandes = unElement.GetElementsByTagName("commande");
+                
                 foreach (XmlElement unCommandes in lesCommandes)
                 {
                     string isbnDuLivre = unCommandes.GetAttribute("ISBN-13");
@@ -69,12 +85,12 @@ namespace Model
                         if (statut == "Attente")
                         {
                             unMembre.ListeCommandesAttente.Add(commandesMembre);
-                            //ListeCommandesAttente.Add(commandesMembre);
+                            ListeAttenteAdmin.Add(commandesMembre);
                         }
                         else
                         {
                             unMembre.ListeCommandesTraitee.Add(commandesMembre);
-                            //ListeCommandesTraitee.Add((commandesMembre));
+                            ListeTraiteeAdmin.Add(commandesMembre);
                         }
                     }
                 }
@@ -98,7 +114,6 @@ namespace Model
                 elementMembre.AppendChild(element);
             }
 
-            //New code:
             XmlElement elementLivres = document.CreateElement("livres");
             racine.AppendChild(elementLivres);
 
@@ -125,7 +140,6 @@ namespace Model
 
                 elementLivres.AppendChild(elementLivre);
             }
-            //end new code
 
             document.Save(nomFichier);
         }

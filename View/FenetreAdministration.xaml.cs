@@ -27,11 +27,13 @@ namespace View
             InitializeComponent();
             DataContext = _viewModel;
             ListeCommandeAttente.DataContext = _viewModel;
+            ListeCommandeTraitee.DataContext = _viewModel;
+            
         }
 
-        //private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
+        private void BoutonRevenir_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

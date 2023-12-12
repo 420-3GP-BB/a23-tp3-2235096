@@ -17,7 +17,13 @@
                         Executed="ConfirmerLivre_Executed"
                         CanExecute="ConfirmerLivre_CanExecute"/>
     </Window.CommandBindings>
-    
+
+    <Window.Resources>
+        <Style x:Key="boutonCouleur">
+            <Setter Property="Button.Background" Value="AliceBlue"/>
+        </Style>
+    </Window.Resources>
+
     <StackPanel Margin="5">
         <TextBlock Text="Entrer les informations sur le livre:"
            FontWeight="Bold"
@@ -119,6 +125,7 @@
         <Button Command="{x:Static local:FenetreCommandeLivre.ConfirmerBouton}"
                 Content="Confirmer la commande" 
                 Height="20" 
-                Width="150"/>
+                Width="150"
+                Style="{StaticResource boutonCouleur}"/>
     </StackPanel>
 </Window>

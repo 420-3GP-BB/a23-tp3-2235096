@@ -34,7 +34,7 @@ namespace View
             int AnneeLivre;
             if (int.TryParse(Annee.Text, out AnneeLivre))
             {
-                    _viewModel.AjouterLivre(ISBN.Text, Titre.Text, Auteur.Text, Éditeur.Text, AnneeLivre);
+                 _viewModel.AjouterLivre(ISBN.Text, Titre.Text, Auteur.Text, Éditeur.Text, AnneeLivre);
             }
             Close();
         }
