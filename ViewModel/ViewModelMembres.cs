@@ -201,56 +201,85 @@ namespace ViewModel
         }// fin methode ChargerMembresEtLivres
 
         /**
-         * Methode ChangerMembres
+         * Methode ChangerMembres pour changer les utilisateurs
          */
 
         public void ChangerMembres(Object obj)
         {
-            MembresActive = obj as Membres;
-            OnPropertyChange("");
-        }
+            // Source: Inspirer du module 7, exercice 2
 
+            // Pour convertir objet en Membre
+            MembresActive = obj as Membres;
+            // Appelle a la methpde OnPropertyChange
+            OnPropertyChange("");
+        }// fin methode ChangerMembres
+
+        /**
+         * Methode OnPropertyChange pour le event PropertyChanged 
+         */
         private void OnPropertyChange(string? property = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        }// fin methode OnPropertyChange
 
+        /**
+         * Methode SauvegarderModification pour sauvegarder les modifications
+         * dans le fichier bibliotheque. La methode fais un sauvegarde automatique
+         */
         public void SauvegarderModification()
         {
+            // Condition if pour verifier si _nomFichier est pas null
             if (_nomFichier != null)
             {
+                // Appelle le methode SauvegarderFichierXml
                 _model.SauvegarderFichierXml( _nomFichier );
-            }
-        }
-
-
-        public void AjouterLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
-        {
-            if (MembresActive != null)
-            {
-                MembresActive.AjouterLivre(leISBN, Titre, Auteur, Editeur, Annee);
-                SauvegarderModification();
-            }
-        }
-
-        public void RetirerLivres(object livre)
-        {
-            if(MembresActive != null)
-            {
-                Livres leLivre = livre as Livres;
-                MembresActive.RetirerLivre(leLivre.ISBN);
-                SauvegarderModification();
-            }
-        }
+            }// fin condition if
+        } //fin methode SauvegarderModification
 
 
         /**
-         * Code pour transferer livre. Ce code n'est pas finit
+         * Methode AjouterLivre pour ajouter des nouveau livre a un membre.
+         * La methode fais un sauvegarde automatique.
+         */
+        public void AjouterLivre(string leISBN, string Titre, string Auteur, string Editeur, int Annee)
+        {
+            // Condition if pour voire si MembresActive est pas null
+            if (MembresActive != null)
+            {
+                // Si vrai, appelle a la methode AjouterLivre du classe Membres
+                MembresActive.AjouterLivre(leISBN, Titre, Auteur, Editeur, Annee);
+                // Appelle a la methode SauvegarderModification pour faire sauvegarde automatique
+                SauvegarderModification();
+            }// fin condition if
+        }// fin methode AjouterLivre
+
+        /**
+         * Methode RetirerLivres pour supprimer un livre du membre.
+         * Ce methode fais un sauvegarde automatique
+         */
+        public void RetirerLivres(object livre)
+        {
+            // Condition if pour voire si MembresActive est pas null
+            if (MembresActive != null)
+            {
+                // Pour convertir livre en Livres
+                Livres leLivre = livre as Livres;
+                // Pour faire un appelle a la methode RetirerLivre dans classe Membres
+                MembresActive.RetirerLivre(leLivre.ISBN);
+                // Appelle a la methode SauvegarderModification pour faire un sauvegarde automatique
+                SauvegarderModification();
+            }// fin condition if
+        }// fin methode RetirerLivres
+
+
+        /**
+         * Methode TransfererLivre pour transferer des livres entre les membres.
+         * Ce code n'est pas complet
          */
 
         //public void TransfererLivre(object livre)
         //{
-            
+
         //    if(MembresActive != null)
         //    {
         //        AjouterLivre();
@@ -260,5 +289,6 @@ namespace ViewModel
         //        SauvegarderModification();
         //    }
         //}
-    }
-}
+
+    } //fin class ViewModelMembres
+}// fin namespace ViewModel
