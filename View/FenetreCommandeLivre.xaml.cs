@@ -20,6 +20,7 @@ namespace View
     /// </summary>
     public partial class FenetreCommandeLivre : Window
     {
+        // RoutedCommand pour changer le membre
         public static RoutedCommand ConfirmerBouton = new RoutedCommand();
         private ViewModelMembres _viewModel;
         public FenetreCommandeLivre(ViewModelMembres viewModel)

@@ -37,7 +37,8 @@
 
     <Window.Resources>
         <Style x:Key="boutonCouleur">
-            <Setter Property="Button.Background" Value="AliceBlue"/>
+            <Setter Property="Button.Background" Value="SeaGreen"/>
+            <Setter Property="Button.Foreground" Value="White"/>
         </Style>
     </Window.Resources>
 
