@@ -21,22 +21,31 @@ namespace View
     /// </summary>
     public partial class FenetreChoixUtilisateur : Window
     {
+        // Instance _viewModel 
         private ViewModelMembres _viewModel;
         public FenetreChoixUtilisateur(ViewModelMembres viewModel)
         {
+            // Pour initialiser _viewModel
             _viewModel = viewModel;
+            // Pour initialiser la fenetre
             InitializeComponent();
+            // Pour initialiser DataContext
             DataContext = _viewModel;
-        }
+        }// fin FenetreChoixUtilisateur
 
-
+        /**
+         * Methode BoutonConfirmer_Click pour confirmer le membre choisi
+         */
         private void BoutonConfirmer_Click(object sender, RoutedEventArgs e)
         {
+            // Condition if pour voir si un membre est selectioner ou pas
             if (ComboBoxMembres.SelectedItem != null)
             {
+                // Appelle la methode ChangerMembres
                 _viewModel.ChangerMembres(ComboBoxMembres.SelectedItem);
+                // Pour fermer la fenetre
                 Close();
-            }
-        }
-    }
-}
+            }// fin condition if
+        }// fin methode BoutonConfirmer_Click
+    }// fin class FenetreChoixUtilisateur
+} // fin namespace View

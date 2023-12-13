@@ -20,20 +20,30 @@ namespace View
     /// </summary>
     public partial class FenetreAdministration : Window
     {
+        // Instance _viewModel 
         private ViewModelMembres _viewModel;
         public FenetreAdministration(ViewModelMembres viewModel)
         {
+            // Pour initialiser _viewModel
             _viewModel = viewModel;
+            // Pour initialiser la fenetre
             InitializeComponent();
+            // Pour initialiser DataContext
             DataContext = _viewModel;
+            // Pour afficher les livres en attentes de tous les membres
             ListeCommandeAttente.DataContext = _viewModel;
+            // Pour afficher les livres traitée de tous les membres
             ListeCommandeTraitee.DataContext = _viewModel;
-            
-        }
+        }// fin FenetreAdministration
 
+        /**
+         * Methode BoutonRevenir_Click pour fermer la fenetre
+         */
         private void BoutonRevenir_Click(object sender, RoutedEventArgs e)
         {
+            // Pour fermer la fenetre
             Close();
-        }
+        }// fin methode BoutonRevenir_Click
+
     }
 }
